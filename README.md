@@ -2,7 +2,11 @@
 
 A single-file toy: translucent gummy bears on a white table that you can grab, stretch, squash, throw and pour.
 
-Open `index.html` in a recent browser. The only dependency is three.js, loaded from jsDelivr, so the first load needs a connection.
+**Play it:** https://spec012.github.io/Gummybears-/
+
+Or open `index.html` in a recent browser. The only dependency is three.js, loaded from jsDelivr, so the first load needs a connection.
+
+Every push to `main` republishes the page: a small workflow copies `index.html` onto the `gh-pages` branch, which GitHub Pages serves.
 
 ## Playing
 

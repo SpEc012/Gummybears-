@@ -1,0 +1,40 @@
+name: Publish to GitHub Pages
+
+# Copies the page from main onto the gh-pages branch, which GitHub Pages serves.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Publish index.html
+        run: |
+          cp index.html site/index.html
+          touch site/.nojekyll
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .nojekyll
+          if git diff --cached --quiet; then
+            echo "The site is already up to date."
+            exit 0
+          fi
+          git commit -m "Publish ${GITHUB_SHA::7} from main"
+          git push
